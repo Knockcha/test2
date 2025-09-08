@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SportsCenter</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5dc;
+            color: #2c3e50;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #f5f5dc 0%, #e8e8d0 100%);
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .auth-links {
+            position: absolute;
+            top: 1rem;
+            right: 2rem;
+            font-size: 0.9rem;
+        }
+
+        .auth-links a {
+            color: #2c3e50;
+            text-decoration: none;
+            margin: 0 0.5rem;
+            transition: color 0.3s;
+        }
+
+        .auth-links a:hover {
+            color: #00bcd4;
+        }
+
+        .logo {
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .logo h1 {
+            font-size: 4rem;
+            font-weight: bold;
+            color: #2c3e50;
+            text-shadow: 3px 3px 6px rgba(0,188,212,0.3);
+            letter-spacing: 0.2rem;
+        }
+
+        .logo p {
+            font-size: 1.2rem;
+            color: #00bcd4;
+            margin-top: 0.5rem;
+            font-weight: 300;
+        }
+
+        /* Navigation */
+        .nav {
+            background-color: #00bcd4;
+            padding: 0;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .nav-item {
+            flex: 1;
+            text-align: center;
+            background-color: #00acc1;
+            border-bottom-color: #2c3e50;
+            color: #2c3e50;
+        }
+        
+
+        .nav-item a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 1.2rem 2rem;
+            font-size: 1.1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+        }
+
+        .nav-item a:hover {
+            background-color: #34495e;
+            border-bottom-color: #00bcd4;
+            color: #00bcd4;
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            background-color: #FF7043;
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+            margin: 2rem 0;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .hero h2 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            background-color: #f5f5dc;;
+            color: #2c3e50;
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-button:hover {
+            background-color: #e8e8d0;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        /* Features Section */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-card, .notice-aside, .facility-aside {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+            height: 350px; /* 고정 높이 */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: #00bcd4;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .feature-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .facility-aside {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+        }
+
+        .facility-aside h3 {
+            color: #00bcd4;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .facility-list {
+            list-style: none;
+            text-align: left;
+        }
+
+        .facility-list li {
+            padding: 0.6rem 0;
+            border-bottom: 1px solid #495057;
+            color: #bdc3c7;
+            font-size: 0.95rem;
+        }
+
+        .facility-list li:last-child {
+            border-bottom: none;
+        }
+
+        .facility-list li:hover {
+            color: #00bcd4;
+            cursor: pointer;
+        }
+
+        /* Info Section */
+        .info-section {
+            background: white;
+            padding: 3rem 2rem;
+            margin: 2rem 0;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        .info-content h2 {
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+            font-size: 2.2rem;
+        }
+
+        .info-content p {
+            color: #666;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .stat-item {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+            border-left: 4px solid #00bcd4;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #2c3e50;
+            display: block;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Aside - Notice */
+        .notice-aside {
+            background: linear-gradient(135deg, #00bcd4 0%, #0097a7 100%);
+            color: white;
+        }
+
+        .notice-aside h3 {
+            color: #e0f7fa;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .notice-list {
+            list-style: none;
+            text-align: left;
+        }
+
+        .notice-list li {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid #26c6da;
+            cursor: pointer;
+            transition: color 0.3s;
+            font-size: 0.95rem;
+            text-align: left;
+        }
+
+        .notice-list li:hover {
+            color: #e0f7fa;
+        }
+
+        .notice-list li:last-child {
+            border-bottom: none;
+        }
+
+        .notice-date {
+            font-size: 0.8rem;
+            color: #b2ebf2;
+            float: right;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #2c3e50;
+            color: white;
+            padding: 3rem 0 1rem;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-section h3 {
+            color: #00bcd4;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .footer-section p,
+        .footer-section li {
+            color: #bdc3c7;
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .footer-section ul li:hover {
+            color: #00bcd4;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: #bdc3c7;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: #00bcd4;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #34495e;
+            margin-top: 2rem;
+            padding-top: 1rem;
+            text-align: center;
+            color: #95a5a6;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .logo h1 {
+                font-size: 2.5rem;
+            }
+
+            .nav-container {
+                flex-direction: column;
+            }
+
+            .hero h2 {
+                font-size: 2rem;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .auth-links {
+                position: static;
+                text-align: center;
+                margin-bottom: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="auth-links">
+            <a href="#" id="signup">회원가입</a> |
+            <a href="#" id="login">로그인</a>
+        </div>
+        
+        <div class="logo">
+            <h1>UNIVERSE</h1>
+            <p>당신의 건강을 책임질 단 하나의 우주</p>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <div class="nav-item"><a href="#facilities">시설소개</a></div>
+            <div class="nav-item"><a href="#programs">프로그램안내</a></div>
+            <div class="nav-item"><a href="#events">이벤트</a></div>
+            <div class="nav-item"><a href="#restaurant">식당안내</a></div>
+            <div class="nav-item"><a href="#mypage">Mypage</a></div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Hero Section -->
+        <section class="hero">
+            <h2>당신의 한계를 뛰어넘으세요</h2>
+            <p>최첨단 시설과 전문 트레이너가 함께하는 프리미엄 스포츠센터</p>
+            <a href="#" class="cta-button" id="start-btn">지금 시작하기</a>
+        </section>
+
+        <!-- Features Section -->
+        <!-- Features Section - 6개 카드 통일 -->
+    <section class="features">
+        <div class="feature-card">
+            <div class="feature-icon">🏋️</div>
+            <h3>최첨단 헬스장</h3>
+            <p>세계 최고급 운동기구와 넓은 공간에서 안전하고 효과적인 운동을 즐기세요.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">🏊</div>
+            <h3>프리미엄 수영장</h3>
+            <p>25m 국제규격 레인풀과 아쿠아로빅 전용 풀에서 수영의 즐거움을 만끽하세요.</p>
+        </div>
+        <!-- 공지사항 aside -->
+        <aside class="notice-aside feature-card">
+            <h3>📢 공지사항</h3>
+            <ul class="notice-list">
+                <li>
+                    신규 회원 50% 할인 이벤트
+                </li>
+                <li>
+                    수영장 보수공사 안내
+                </li>
+                <li>
+                    PT 무료체험 이벤트
+                </li>
+                <li>
+                    요가클래스 추가 개설
+                </li>
+                <li>
+                    시설내 안전사고 대처요령
+                </li>
+            </ul>
+        </aside>
+        
+        <div class="feature-card">
+            <div class="feature-icon">🧘</div>
+            <h3>요가 & 필라테스</h3>
+            <p>전문 강사와 함께하는 다양한 그룹클래스로 몸과 마음의 균형을 찾아보세요.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">♨️</div>
+            <h3>사우나 & 스파</h3>
+            <p>한국식 찜질방과 프리미엄 스파에서 일상의 피로를 완전히 해소하세요.</p>
+        </div>
+        <!-- 시설 안내 aside -->
+        <aside class="facility-aside feature-card">
+            <h3>🏢 시설 안내</h3>
+            <ul class="facility-list">
+                <li>헬스장 (지하1층~2층)</li>
+                <li>수영장 (지하1층)</li>
+                <li>요가&필라테스실 (3층)</li>
+                <li>사우나&스파 (지하1층)</li>
+                <li>레스토랑&카페 (1층)</li>
+            </ul>
+        </aside>
+    </section>
+
+                
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>연락처</h3>
+                <p>📍 서울특별시 강남구 테헤란로 123길 45</p>
+                <p>📞 02-1234-5678</p>
+                <p>📧 info@universe-sports.com</p>
+                <p>🕒 24시간 운영 (연중무휴)</p>
+            </div>
+            <div class="footer-section">
+                <h3>이용 안내</h3>
+                <ul>
+                    <li>회원가입 및 상담</li>
+                    <li>개인 트레이닝</li>
+                    <li>시설 이용 규칙</li>
+                    <li>개인정보처리방침</li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>소셜 미디어</h3>
+                <p>UNIVERSE와 함께하세요!</p>
+                <div class="social-links">
+                    <a href="#">📘</a>
+                    <a href="#">📷</a>
+                    <a href="#">🐦</a>
+                    <a href="#">📺</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2024 UNIVERSE Sports Center. All rights reserved. | 사업자등록번호: 123-45-67890</p>
+        </div>
+    </footer>
+
+    <script>
+        // Navigation hover effects
+        document.querySelectorAll('.nav-item a').forEach(link => {
+            link.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-2px)';
+            });
+            
+            link.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+
+        // CTA Button click effect
+        document.getElementById('start-btn').addEventListener('click', function(e) {
+            e.preventDefault();
+            this.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                this.style.transform = 'scale(1)';
+            }, 150);
+            alert('회원가입 페이지로 이동합니다!');
+        });
+
+        // Auth links functionality
+        document.getElementById('signup').addEventListener('click', function(e) {
+            e.preventDefault();
+            alert('회원가입 페이지로 이동합니다.');
+        });
+
+        document.getElementById('login').addEventListener('click', function(e) {
+            e.preventDefault();
+            alert('로그인 페이지로 이동합니다.');
+        });
+
+        // Notice list click effects
+        document.querySelectorAll('.notice-list li').forEach(item => {
+            item.addEventListener('click', function() {
+                const noticeText = this.textContent.replace(/\d{4}\.\d{2}\.\d{2}/, '').trim();
+                alert(`공지사항: ${noticeText}`);
+            });
+        });
+
+        // Smooth scroll for navigation
+        document.querySelectorAll('.nav-item a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                alert(`${this.textContent} 페이지로 이동합니다.`);
+            });
+        });
+
+        // Scroll animations
+        function animateOnScroll() {
+            const elements = document.querySelectorAll('.feature-card, .stat-item');
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (elementTop < windowHeight - 100) {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }
+            });
+        }
+
+        // Initialize scroll animations
+        document.querySelectorAll('.feature-card, .stat-item').forEach(element => {
+            element.style.opacity = '0';
+            element.style.transform = 'translateY(20px)';
+            element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        });
+
+        window.addEventListener('scroll', animateOnScroll);
+        window.addEventListener('load', animateOnScroll);
+
+        console.log('UNIVERSE Sports Center Website Loaded Successfully! 🏃‍♂️');
+    </script>
+</body>
+</html>
